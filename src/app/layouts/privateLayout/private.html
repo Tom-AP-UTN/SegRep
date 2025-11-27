@@ -1,0 +1,22 @@
+@if (usuario) {
+
+    <div class="h-screen flex flex-col">
+
+        <!-- NAVBAR SUPERIOR -->
+        <app-navbar></app-navbar>
+
+        <div class="flex flex-1">
+
+            <!-- SIDEBAR CONTEXTUAL -->
+            <app-sidebar class="w-64 bg-gray-900 text-white"></app-sidebar>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="flex-1 p-6 bg-gray-100 overflow-auto">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+
+    </div>
+
+}

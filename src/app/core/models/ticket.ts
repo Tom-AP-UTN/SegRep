@@ -4,7 +4,7 @@ import { Update } from './update';
 
 export interface Ticket {
 
-    id: number;
+    id: string;
 
     titulo: string;
     descripcion: string;
@@ -16,8 +16,8 @@ export interface Ticket {
     fechaCreacion: string;
     fechaFinalizacion?: string;
 
-    idCliente: number;
-    idTecnico: number;
+    idCliente: string;
+    idTecnico: string;
 
     updates: Update[];
 }

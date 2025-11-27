@@ -1,0 +1,55 @@
+@if (!ticket) {
+  <p class="mt-10 text-center text-gray-600">Cargando ticket...</p>
+} @else {
+
+<div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+
+  <h2 class="text-2xl font-bold mb-6">Editar Ticket</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-col gap-4">
+
+    <div>
+      <label class="block font-semibold mb-1">Título</label>
+      <input class="w-full border p-2 rounded" formControlName="titulo">
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Descripción</label>
+      <textarea class="w-full border p-2 rounded" rows="3" formControlName="descripcion"></textarea>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Tipo de máquina</label>
+      <input class="w-full border p-2 rounded" formControlName="tipoMaquina">
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Estado</label>
+      <select class="w-full border p-2 rounded" formControlName="estado">
+        <option value="pendiente">Pendiente</option>
+        <option value="en_progreso">En Progreso</option>
+        <option value="finalizado">Finalizado</option>
+      </select>
+    </div>
+
+    <div class="flex gap-2 mt-4">
+
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500"
+        [routerLink]="['/app/tickets', ticket.id]">
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        Guardar
+      </button>
+
+    </div>
+
+  </form>
+</div>
+
+}

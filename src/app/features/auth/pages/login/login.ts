@@ -1,45 +1,59 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
 import { SessionService } from '../../../../core/services/session.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [FormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './login.html',
-    styleUrl: './login.css'
+    styleUrls: ['./login.css']
 })
-
 export class Login {
 
-    email = '';
-    password = '';
-    error: string | null = null;
+    constructor(private session: SessionService, private router: Router) {}
 
-    constructor(
-        private auth: AuthService,
-        private session: SessionService,
-        private router: Router
-    ) { }
+    form = new FormGroup({
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required])
+    });
 
-    onSubmit(): void {
-        this.error = null;
+    get email() { return this.form.get('email')!; }
+    get password() { return this.form.get('password')!; }
 
-        this.auth.login(this.email, this.password).subscribe(result => {
+    errorMsg = '';
 
-            if (result.length === 1) {
+    onLogin() {
 
-                this.session.setUsuarioActivo(result[0]);
-                this.router.navigate(['/dashboard']);
-            } 
-            
-            else {
-            
-                this.error = 'Credenciales inválidas';
+        this.errorMsg = '';
+
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            return;
+        }
+
+        const email = this.email.value!;
+        const password = this.password.value!;
+
+        this.session.login(email, password).subscribe(user => {
+
+            if (!user) {
+                this.errorMsg = 'Credenciales incorrectas';
+                return;
+            }
+
+            // Redirección correcta según rol
+            if (user.rol === 'tecnico') {
+                this.router.navigate(['/app/tickets/dashboard']);
+            } else {
+                this.router.navigate(['/app/mis-tickets/dashboard']);
             }
         });
     }
+
+    goRegister() {
+        this.router.navigate(['/public/register']);
+    }
+
 }

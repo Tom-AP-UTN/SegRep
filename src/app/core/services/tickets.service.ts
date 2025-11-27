@@ -8,7 +8,7 @@ import { Update } from '../models/update';
   providedIn: 'root'
 })
 
-export class TicketService {
+export class TicketsService {
 
   private apiUrl = 'http://localhost:3000/tickets';
 
@@ -23,7 +23,7 @@ export class TicketService {
       return this.http.get<Ticket[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<Ticket> {
+  getById(id: string): Observable<Ticket> {
 
       return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
   }
@@ -38,10 +38,23 @@ export class TicketService {
       return this.http.put<Ticket>(`${this.apiUrl}/${ticket.id}`, ticket);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
 
       return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  // Tickets del técnico actual
+  getByTecnico(idTecnico: string) {
+
+    return this.http.get<Ticket[]>(`${this.apiUrl}?idTecnico=${idTecnico}`);
+  }
+
+  // Tickets del cliente actual
+  getByCliente(idCliente: string) {
+
+    return this.http.get<Ticket[]>(`${this.apiUrl}?idCliente=${idCliente}`);
+  }
+
 
 
   
@@ -49,7 +62,7 @@ export class TicketService {
   //  UPDATES (anidados) - Lo diseñé como íntegro al ticket, así que lo dejo acá
   // --------------------------------------------------------------------------------
 
-  agregarUpdate(idTicket: number, update: Omit<Update, 'nroUpdate'>): Observable<Ticket> {
+  agregarUpdate(idTicket: string, update: Omit<Update, 'nroUpdate'>): Observable<Ticket> {
 
       return this.getById(idTicket).pipe(
         switchMap(ticket => {
@@ -66,7 +79,7 @@ export class TicketService {
   }
 
 
-  eliminarUpdate(idTicket: number, nroUpdate: number): Observable<Ticket> {
+  eliminarUpdate(idTicket: string, nroUpdate: number): Observable<Ticket> {
 
       return this.getById(idTicket).pipe(
         switchMap(ticket => {
@@ -82,7 +95,7 @@ export class TicketService {
   }
 
 
-  editarUpdate(idTicket: number, nroUpdate: number, cambios: Partial<Update>): Observable<Ticket> {
+  editarUpdate(idTicket: string, nroUpdate: number, cambios: Partial<Update>): Observable<Ticket> {
 
       return this.getById(idTicket).pipe(
         switchMap(ticket => {

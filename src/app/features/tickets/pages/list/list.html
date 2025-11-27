@@ -1,1 +1,72 @@
-<p>list works!</p>
+<table class="min-w-full bg-white rounded shadow">
+  <thead class="bg-gray-100 border-b">
+    <tr>
+      <th class="p-3 text-left">Título</th>
+
+      @if (rol === 'tecnico') {
+        <th class="p-3 text-left">Cliente</th>
+      }
+
+      @if (rol === 'cliente') {
+        <th class="p-3 text-left">Técnico</th>
+      }
+
+      <th class="p-3 text-left">Estado</th>
+      <th class="p-3 text-left">Fecha</th>
+
+      <th class="p-3 text-left">Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (t of tickets; track t.id) {
+
+      <tr class="border-b hover:bg-gray-50">
+
+        <td class="p-3">{{ t.titulo }}</td>
+
+        @if (rol === 'tecnico') {
+          <td class="p-3">{{ t.nombreCliente }}</td>
+        }
+
+        @if (rol === 'cliente') {
+          <td class="p-3">{{ t.nombreTecnico }}</td>
+        }
+
+        <td class="p-3">
+          <span class="px-2 py-1 rounded text-white"
+            [class.bg-yellow-500]="t.estado === 'pendiente'"
+            [class.bg-blue-500]="t.estado === 'en_progreso'"
+            [class.bg-green-600]="t.estado === 'finalizado'">
+            {{ t.estado }}
+          </span>
+        </td>
+
+        <td class="p-3">
+          {{ t.fechaCreacion | date:'short' }}
+        </td>
+
+        <td class="p-3 space-x-2">
+
+          <button
+            class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+            [routerLink]="['/app/tickets', t.id]">
+            Ver
+          </button>
+
+          @if (rol === 'tecnico') {
+            <button
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+              [routerLink]="['/app/tickets', t.id, 'edit']">
+              Editar
+            </button>
+          }
+
+        </td>
+
+      </tr>
+
+    }
+  </tbody>
+
+</table>

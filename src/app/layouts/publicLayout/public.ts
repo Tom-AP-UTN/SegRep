@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 
 
 @Component({
-  selector: 'app-public',
+  selector: 'app-public-layout',
+  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './public.html',
   styleUrl: './public.css',
 })
 
-export class Public {
+export class PublicLayout {
 
 }

@@ -1,0 +1,78 @@
+@if (!ticket) {
+  <p class="text-gray-600 text-center mt-10">Cargando ticket...</p>
+} @else {
+
+<div class="p-6 max-w-2xl mx-auto bg-white rounded shadow">
+
+  <h2 class="text-2xl font-bold mb-6">
+    Nuevo Update para {{ ticket.titulo }}
+  </h2>
+
+  <form [formGroup]="updateForm" (ngSubmit)="guardar()" class="flex flex-col gap-4">
+
+    <!-- Detalle -->
+    <div>
+      <label class="block font-semibold mb-1">Detalle del update</label>
+      <textarea
+        formControlName="detalleUpdate"
+        rows="3"
+        class="w-full p-2 border rounded"
+        placeholder="Descripción del avance..."
+      ></textarea>
+
+      @if (updateForm.get('detalleUpdate')?.invalid && updateForm.get('detalleUpdate')?.touched) {
+        <p class="text-red-600 text-sm">Este campo es obligatorio.</p>
+      }
+    </div>
+
+    <!-- Cambio de estado -->
+    <div>
+      <label class="block font-semibold mb-1">Cambiar estado (opcional)</label>
+      <select
+        formControlName="nuevoEstado"
+        class="w-full p-2 border rounded"
+      >
+        <option value="">(sin cambio)</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="en_progreso">En Progreso</option>
+        <option value="finalizado">Finalizado</option>
+      </select>
+    </div>
+
+    <!-- Imagen -->
+    <div>
+      <label class="block font-semibold mb-1">Imagen (opcional)</label>
+      <input type="file" (change)="handleImageUpload($event)" class="p-2" />
+
+      @if (updateForm.value.imagenUpdate) {
+        <img
+          [src]="updateForm.value.imagenUpdate"
+          class="mt-3 border rounded max-h-64"
+        />
+      }
+    </div>
+
+    <!-- Botones -->
+    <div class="flex gap-3 mt-4">
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500"
+        [routerLink]="['/app/tickets', ticket.id]"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        [disabled]="updateForm.invalid"
+      >
+        Guardar Update
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+}

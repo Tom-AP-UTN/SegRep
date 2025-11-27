@@ -17,38 +17,38 @@ export class Sidebar {
         private session: SessionService
     ) { }
 
-    usuario = computed(() => this.session.getUsuarioActivo());
+    usuario = computed(() => this.session.usuarioActual());
     rol = computed(() => this.usuario()?.rol);
 
     sidebarLinks = computed(() => {
+        
         const path = this.router.url;
 
-        // TÉCNICO - TICKETS
-        if (path.startsWith('/tickets')) {
+        // TECNICO - TICKETS
+        if (path.startsWith('/app/tickets')) {
             return [
-                { label: 'Dashboard', path: '/tickets' },
-                { label: 'Todos los tickets', path: '/tickets/list' },
-                { label: 'Nuevo Ticket', path: '/tickets/new' }
+                { label: 'Dashboard', path: '/app/tickets/dashboard' },
+                { label: 'Todos los tickets', path: '/app/tickets/list' },
+                { label: 'Nuevo Ticket', path: '/app/tickets/new' }
             ];
         }
 
         // TÉCNICO - INVENTARIO
-        if (path.startsWith('/inventario')) {
+        if (path.startsWith('/app/inventario')) {
             return [
-                { label: 'Mi Inventario', path: '/inventario' },
-                { label: 'Agregar Ítem', path: '/inventario/new' }
+                { label: 'Mi Inventario', path: '/app/inventario' },
+                { label: 'Agregar Ítem', path: '/app/inventario/new' }
             ];
         }
 
         // CLIENTE - MIS TICKETS
-        if (path.startsWith('/mis-tickets')) {
+        if (path.startsWith('/app/mis-tickets')) {
             return [
-                { label: 'Dashboard', path: '/mis-tickets' },
-                { label: 'Todos mis tickets', path: '/mis-tickets/list' }
+                { label: 'Dashboard', path: '/app/mis-tickets/dashboard' },
+                { label: 'Todos mis tickets', path: '/app/mis-tickets/list' }
             ];
         }
 
-        // CLIENTE o TÉCNICO - CLIENTES / PERFIL / etc
         return [];
     });
 

@@ -13,12 +13,12 @@ export class Navbar {
 
     constructor( private session: SessionService, private router: Router) { }
 
-    usuario = computed(() => this.session.getUsuarioActivo());
+    usuario = computed(() => this.session.usuarioActual());
     rol = computed(() => this.usuario()?.rol);
 
     logout(): void {
         
-        this.session.clear();
+        this.session.logout();
         this.router.navigateByUrl('/auth', { replaceUrl: true });
     }
 }

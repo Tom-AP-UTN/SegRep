@@ -18,7 +18,7 @@ export class TecnicosService {
       );
   }
 
-  getById(id: number): Observable<Tecnico> {
+  getById(id: string): Observable<Tecnico> {
 
       return this.usuariosService.getById(id) as Observable<Tecnico>;
   }
@@ -37,7 +37,7 @@ export class TecnicosService {
 
 //--- De momento no voy a borrar usuarios, pero dejo la función.
 /*
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
 
       return this.usuariosService.delete(id);
   }

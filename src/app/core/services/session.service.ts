@@ -1,30 +1,76 @@
-import { Injectable } from '@angular/core';
-import { Usuario } from '../../core/models/usuario';
+import { Injectable, signal, computed } from '@angular/core';
+import { UsuariosService } from './usuarios.service';
+import { Usuario } from '../models/usuario';
+import { map, Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+    providedIn: 'root'
+})
 
 export class SessionService {
 
-    private key = 'usuarioActivo';
+    private readonly STORAGE_KEY = 'session-user';
 
-    setUsuarioActivo(usuario: Usuario): void {
+  // Estado interno manejado con una signal
+    private usuarioActualSignal = signal<Usuario | null>(this.cargarStorage());
 
-        localStorage.setItem(this.key, JSON.stringify(usuario));
+  // Helpers computados
+    usuarioActual   = computed(() => this.usuarioActualSignal()             );
+    isLoggedIn      = computed(() => this.usuarioActualSignal() !== null    );
+    rolActual       = computed(() => this.usuarioActualSignal()?.rol ?? null);
+    idUsuarioActual = computed(() => this.usuarioActualSignal()?.id ?? null );
+
+    constructor(private usuariosService: UsuariosService) {}
+
+  // ----------------------------------
+  //  LOGIN
+  // ----------------------------------
+
+    login(email: string, password: string): Observable<Usuario | null> {
+
+        return this.usuariosService.getAll().pipe(
+            map(users => {
+
+                const user = users.find(u => u.email === email && u.password === password) || null;
+
+                if (user) {
+                    this.usuarioActualSignal.set(user);
+                    this.guardarStorage(user);
+                }
+
+                return user;
+            })
+        );
     }
 
-    getUsuarioActivo(): Usuario | null {
 
-        const raw = localStorage.getItem(this.key);
-        return raw ? JSON.parse(raw) : null;
+
+  // ----------------------------------
+  //  LOGOUT
+  // ----------------------------------
+
+    logout(): void {
+
+        this.usuarioActualSignal.set(null);
+        localStorage.removeItem(this.STORAGE_KEY);
     }
 
-    clear(): void {
 
-        localStorage.removeItem(this.key);
+
+  // ---------------------------------------------------
+  //  Helpers para session persistida en localStorage.
+  //  Me guardan el usuario aunque se cierre el nav.
+  // ---------------------------------------------------
+
+    private cargarStorage(): Usuario | null {
+
+        const data = localStorage.getItem(this.STORAGE_KEY);
+        return data ? JSON.parse(data) : null;
     }
 
-    isLogged(): boolean {
-      
-        return this.getUsuarioActivo() !== null;
+    private guardarStorage(user: Usuario): void {
+
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
     }
+
 }

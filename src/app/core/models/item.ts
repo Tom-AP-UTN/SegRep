@@ -1,6 +1,6 @@
 export interface Item {
 
-    id: number;                      
+    id: string;                      
     idUser: number; 
     
     usarTituloManual: boolean;  // Flag para título

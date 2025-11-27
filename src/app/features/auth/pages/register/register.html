@@ -1,0 +1,42 @@
+<div class="bg-white p-8 rounded shadow-md w-96">
+
+  <h2 class="text-2xl font-bold mb-6 text-center">Crear cuenta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+
+    <!-- Nombre / Apellido -->
+    <div class="flex gap-2">
+      <input class="border rounded px-3 py-2 w-1/2" placeholder="Nombre" formControlName="nombre">
+      <input class="border rounded px-3 py-2 w-1/2" placeholder="Apellido" formControlName="apellido">
+    </div>
+
+    <input class="border rounded w-full px-3 py-2" placeholder="Email" formControlName="email">
+    <input class="border rounded w-full px-3 py-2" placeholder="Contraseña" type="password" formControlName="password">
+
+    <input class="border rounded w-full px-3 py-2" placeholder="Celular" formControlName="celular">
+    <input class="border rounded w-full px-3 py-2" placeholder="Dirección" formControlName="direccion">
+
+    <select class="border rounded w-full px-3 py-2" formControlName="rol">
+      <option value="cliente">Cliente</option>
+      <option value="tecnico">Técnico</option>
+    </select>
+
+    <!-- Campos exclusivos para técnico -->
+    @if (form.get('rol')?.value === 'tecnico') {
+      <div class="space-y-3">
+
+        <input class="border rounded w-full px-3 py-2" placeholder="Nombre comercial" formControlName="nombreComercial">
+
+        <input class="border rounded w-full px-3 py-2" placeholder="Facebook" formControlName="facebook">
+        <input class="border rounded w-full px-3 py-2" placeholder="Instagram" formControlName="instagram">
+        <input class="border rounded w-full px-3 py-2" placeholder="TikTok" formControlName="tiktok">
+
+      </div>
+    }
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      Crear cuenta
+    </button>
+
+  </form>
+</div>

@@ -18,7 +18,7 @@ export class ClientesService {
       );
   }
 
-  getById(id: number): Observable<Cliente> {
+  getById(id: string): Observable<Cliente> {
 
       return this.usuariosService.getById(id) as Observable<Cliente>;
   }
@@ -37,7 +37,7 @@ export class ClientesService {
 
 //--- De momento no voy a borrar usuarios, pero dejo la función.
 /*
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
 
       return this.usuariosService.delete(id);
   }

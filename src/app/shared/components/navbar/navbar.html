@@ -10,23 +10,24 @@
 
         
 
-        <!-- LINKS SEGÚN ROL -->
+        <!-- TÉCNICO -->
         @if (rol() === 'tecnico') {
 
-            <button routerLink="/dashboard" class="hover:underline">Dashboard</button>
-            <button routerLink="/tickets" class="hover:underline">Tickets</button>
-            <button routerLink="/clientes" class="hover:underline">Clientes</button>
-            <button routerLink="/inventario" class="hover:underline">Inventario</button>
+            <button routerLink="/app/tickets/dashboard" class="hover:underline">Dashboard</button>
+            <button routerLink="/app/tickets/list" class="hover:underline">Tickets</button>
+            <button routerLink="/app/clientes" class="hover:underline">Clientes</button>
+            <button routerLink="/app/inventario" class="hover:underline">Inventario</button>
         }
 
+        <!-- CLIENTE -->
         @if (rol() === 'cliente') {
 
-            <button routerLink="/dashboard" class="hover:underline">Dashboard</button>
-            <button routerLink="/mis-tickets" class="hover:underline">Mis Tickets</button>
-            <button routerLink="/tecnicos" class="hover:underline">Técnicos</button>
+            <button routerLink="/app/mis-tickets/dashboard" class="hover:underline">Dashboard</button>
+            <button routerLink="/app/mis-tickets/list" class="hover:underline">Mis Tickets</button>
+            <button routerLink="/app/tecnicos" class="hover:underline">Técnicos</button>
         }
 
-        <button routerLink="/perfil" class="hover:underline">Mi Perfil</button>
+<button routerLink="/app/perfil" class="hover:underline">Mi Perfil</button>
 
     </div>
 

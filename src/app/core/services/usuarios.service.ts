@@ -18,7 +18,7 @@ export class UsuariosService {
       return this.http.get<Usuario[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<Usuario> {
+  getById(id: string): Observable<Usuario> {
 
       return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
@@ -37,7 +37,7 @@ export class UsuariosService {
 
 //--- De momento no voy a borrar usuarios, pero dejo la función.
 /*
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
 
       return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
