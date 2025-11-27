@@ -1,25 +1,16 @@
-<div class="h-full flex flex-col p-4 gap-4">
+<div class="flex flex-col gap-4 p-4 text-white text-lg">
 
-    <h2 class="text-xl font-semibold mb-4">SegRep</h2>
+    @if (sidebarLinks().length === 0) {
+        <div class="text-gray-400 text-sm italic">Sin opciones</div>
+    }
 
-    <a routerLink="/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">
-        Dashboard
-    </a>
-
-@if (rol() === 'tecnico') {
-    <a routerLink="/tickets" class="block px-3 py-2 rounded hover:bg-gray-700">
-        Tickets
-    </a>
-
-    <a routerLink="/inventario" class="block px-3 py-2 rounded hover:bg-gray-700">
-        Inventario
-    </a>
-}
-
-@if (rol() === 'cliente') {
-    <a routerLink="/mis-tickets" class="block px-3 py-2 rounded hover:bg-gray-700">
-        Mis Tickets
-    </a>
-}
+    @for (link of sidebarLinks(); track link.path) {
+        <button
+            [routerLink]="link.path"
+            class="text-left hover:bg-gray-700 p-2 rounded"
+        >
+            {{ link.label }}
+        </button>
+    }
 
 </div>

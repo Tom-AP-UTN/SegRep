@@ -1,0 +1,39 @@
+<div class="w-full h-16 bg-blue-600 text-white flex items-center px-6">
+
+    <!-- LOGO -->
+        <div class="text-xl font-bold">
+            SegRep
+        </div>
+
+    <!-- IZQUIERDA: LOGO + LINKS DESPLAZADOS A LA DERECHA DEL SIDEBAR -->
+    <div class="flex items-center gap-8 flex-1" style="padding-left: 12rem;">
+
+        
+
+        <!-- LINKS SEGÚN ROL -->
+        @if (rol() === 'tecnico') {
+
+            <button routerLink="/dashboard" class="hover:underline">Dashboard</button>
+            <button routerLink="/tickets" class="hover:underline">Tickets</button>
+            <button routerLink="/clientes" class="hover:underline">Clientes</button>
+            <button routerLink="/inventario" class="hover:underline">Inventario</button>
+        }
+
+        @if (rol() === 'cliente') {
+
+            <button routerLink="/dashboard" class="hover:underline">Dashboard</button>
+            <button routerLink="/mis-tickets" class="hover:underline">Mis Tickets</button>
+            <button routerLink="/tecnicos" class="hover:underline">Técnicos</button>
+        }
+
+        <button routerLink="/perfil" class="hover:underline">Mi Perfil</button>
+
+    </div>
+
+    <!-- DERECHA: LOGOUT -->
+    <button
+        (click)="logout()"
+        class="px-4 py-1 bg-red-600 rounded hover:bg-red-700"
+    >
+        Salir
+    </button>
