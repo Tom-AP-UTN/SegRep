@@ -1,0 +1,25 @@
+<div class="h-full flex flex-col p-4 gap-4">
+
+    <h2 class="text-xl font-semibold mb-4">SegRep</h2>
+
+    <a routerLink="/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">
+        Dashboard
+    </a>
+
+@if (rol() === 'tecnico') {
+    <a routerLink="/tickets" class="block px-3 py-2 rounded hover:bg-gray-700">
+        Tickets
+    </a>
+
+    <a routerLink="/inventario" class="block px-3 py-2 rounded hover:bg-gray-700">
+        Inventario
+    </a>
+}
+
+@if (rol() === 'cliente') {
+    <a routerLink="/mis-tickets" class="block px-3 py-2 rounded hover:bg-gray-700">
+        Mis Tickets
+    </a>
+}
+
+</div>
