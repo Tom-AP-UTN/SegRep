@@ -1,4 +1,3 @@
-
 export type RolUsuario = 'tecnico' | 'cliente';
 
 export interface Usuario {
@@ -6,7 +5,7 @@ export interface Usuario {
     id: number;
     email: string;
     password: string;
-    nombre: string;
-    apellido: string;
+    celular: string;
+    direccion: string;
     rol: RolUsuario;
 }

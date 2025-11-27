@@ -10,6 +10,7 @@ export const routes: Routes = [
         path: 'auth',
         component: Public,
         children: [
+            
             { path: '', component: Login }
         ]
     },
@@ -18,6 +19,7 @@ export const routes: Routes = [
         component: Private,
         canActivate: [AuthGuard],
         children: [
+
             { path: 'dashboard', component: Home }
         ]
     },
